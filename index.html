@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prenotazioni — Casa Sopra & Casa Sotto</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Variables ── */
+    :root {
+      --cream:      #FAF7F2;
+      --white:      #FFFFFF;
+      --brown:      #2A1F1A;
+      --brown-mid:  #5C4033;
+      --brown-light:#9C8075;
+      --sopra:      #B85C38;   /* terracotta */
+      --sotto:      #3E7D8A;   /* dusty teal */
+      --airbnb:     #FF5A5F;
+      --booking:    #003580;
+      --esterno:    #5A7A52;
+      --border:     #EDE8E0;
+      --shadow:     0 2px 12px rgba(42,31,26,.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      background: var(--cream);
+      color: var(--brown);
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: var(--brown);
+      color: var(--cream);
+      padding: 24px 20px 20px;
+      text-align: center;
+    }
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      letter-spacing: .03em;
+      margin-bottom: 4px;
+    }
+    header p {
+      font-size: .8rem;
+      color: var(--brown-light);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    #last-updated {
+      font-size: .75rem;
+      color: #9C8075;
+      margin-top: 6px;
+    }
+
+    /* ── Layout ── */
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 24px 16px 48px;
+    }
+
+    .units-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    @media (min-width: 640px) {
+      .units-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ── Unit section ── */
+    .unit-section {}
+
+    .unit-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .unit-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .sopra .unit-dot  { background: var(--sopra); }
+    .sotto .unit-dot  { background: var(--sotto); }
+
+    .unit-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+    .unit-count {
+      margin-left: auto;
+      font-size: .72rem;
+      color: var(--brown-light);
+      text-transform: uppercase;
+      letter-spacing: .07em;
+    }
+
+    /* ── Booking card ── */
+    .booking-card {
+      background: var(--white);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      box-shadow: var(--shadow);
+      border-left: 4px solid transparent;
+      transition: transform .15s ease;
+    }
+    .booking-card:active { transform: scale(.98); }
+
+    .sopra .booking-card { border-left-color: var(--sopra); }
+    .sotto .booking-card { border-left-color: var(--sotto); }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .dates {
+      font-size: .95rem;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+    .dates .sep {
+      color: var(--brown-light);
+      font-weight: 300;
+      margin: 0 4px;
+    }
+    .nights {
+      font-size: .72rem;
+      color: var(--brown-light);
+      margin-top: 2px;
+    }
+
+    .source-badge {
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 20px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .badge-airbnb   { background: #FFEAEA; color: var(--airbnb); }
+    .badge-booking  { background: #E8EEF7; color: var(--booking); }
+    .badge-esterno  { background: #EBF2EA; color: var(--esterno); }
+
+    /* ── Details section ── */
+    .card-details {
+      border-top: 1px solid var(--border);
+      padding-top: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .detail-row {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      font-size: .82rem;
+    }
+    .detail-label {
+      color: var(--brown-light);
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      min-width: 70px;
+      flex-shrink: 0;
+    }
+    .detail-value {
+      color: var(--brown);
+      font-weight: 400;
+    }
+    .detail-value a {
+      color: var(--airbnb);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: .78rem;
+    }
+    .detail-value a:hover { text-decoration: underline; }
+
+    .price-row .detail-value {
+      font-weight: 600;
+      font-size: .9rem;
+    }
+    .price-to-pay {
+      color: var(--sopra);
+    }
+
+    /* ── Empty / loading states ── */
+    .empty {
+      text-align: center;
+      padding: 32px 16px;
+      color: var(--brown-light);
+      font-size: .85rem;
+    }
+
+    #loading {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--brown-light);
+      font-size: .9rem;
+    }
+
+    #error-msg {
+      background: #FFF3F3;
+      border: 1px solid #FFCDD2;
+      color: #B71C1C;
+      padding: 16px;
+      border-radius: 8px;
+      margin: 20px 0;
+      font-size: .85rem;
+      display: none;
+    }
+
+    /* ── Refresh button ── */
+    .refresh-bar {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .refresh-btn {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--brown-mid);
+      padding: 7px 18px;
+      border-radius: 20px;
+      font-family: inherit;
+      font-size: .78rem;
+      cursor: pointer;
+      letter-spacing: .05em;
+      transition: background .15s;
+    }
+    .refresh-btn:hover { background: var(--border); }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Casa Sopra &amp; Casa Sotto</h1>
+  <p>Prenotazioni in corso</p>
+  <div id="last-updated"></div>
+</header>
+
+<main>
+  <div id="error-msg"></div>
+  <div id="loading">Caricamento prenotazioni…</div>
+
+  <div id="content" style="display:none">
+    <div class="refresh-bar">
+      <button class="refresh-btn" onclick="loadData()">↻ Aggiorna</button>
+    </div>
+    <div class="units-grid">
+      <div class="unit-section sopra" id="section-sopra">
+        <div class="unit-header">
+          <span class="unit-dot"></span>
+          <span class="unit-title">Casa Sopra</span>
+          <span class="unit-count" id="count-sopra"></span>
+        </div>
+        <div id="bookings-sopra"></div>
+      </div>
+      <div class="unit-section sotto" id="section-sotto">
+        <div class="unit-header">
+          <span class="unit-dot"></span>
+          <span class="unit-title">Casa Sotto</span>
+          <span class="unit-count" id="count-sotto"></span>
+        </div>
+        <div id="bookings-sotto"></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+  // ─────────────────────────────────────────────────────────
+  // ⚠️  REPLACE THIS URL with your published Google Sheet CSV URL
+  //
+  // In Google Sheets:
+  //   File → Share → Publish to web
+  //   Select the "View" sheet → CSV → Publish
+  //   Copy the URL and paste it below
+  // ─────────────────────────────────────────────────────────
+  const SHEET_CSV_URL = 'YOUR_PUBLISHED_CSV_URL_HERE';
+
+  async function loadData() {
+    document.getElementById('loading').style.display = 'block';
+    document.getElementById('content').style.display = 'none';
+    document.getElementById('error-msg').style.display = 'none';
+
+    try {
+      // Add cache-busting param
+      const url = SHEET_CSV_URL + (SHEET_CSV_URL.includes('?') ? '&' : '?') + '_=' + Date.now();
+      const res = await fetch(url);
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const csv = await res.text();
+      const bookings = parseCsv(csv);
+      render(bookings);
+      document.getElementById('last-updated').textContent =
+        'Aggiornato: ' + new Date().toLocaleTimeString('it-IT', {hour:'2-digit', minute:'2-digit'});
+    } catch (e) {
+      const el = document.getElementById('error-msg');
+      el.style.display = 'block';
+      el.textContent = 'Errore nel caricamento dati. Controlla che il CSV sia pubblicato correttamente. (' + e.message + ')';
+    } finally {
+      document.getElementById('loading').style.display = 'none';
+    }
+  }
+
+  function parseCsv(csv) {
+    const lines = csv.trim().split('\n');
+    if (lines.length < 2) return [];
+    const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
+    const bookings = [];
+    for (let i = 1; i < lines.length; i++) {
+      const cols = splitCsvLine(lines[i]);
+      const row = {};
+      headers.forEach((h, idx) => { row[h] = (cols[idx] || '').trim().replace(/^"|"$/g, ''); });
+      if (!row['Unit'] || !row['Check-in']) continue;
+      bookings.push(row);
+    }
+    return bookings;
+  }
+
+  // Handles quoted fields with commas
+  function splitCsvLine(line) {
+    const result = [];
+    let current = '';
+    let inQuotes = false;
+    for (let i = 0; i < line.length; i++) {
+      const ch = line[i];
+      if (ch === '"') {
+        inQuotes = !inQuotes;
+      } else if (ch === ',' && !inQuotes) {
+        result.push(current);
+        current = '';
+      } else {
+        current += ch;
+      }
+    }
+    result.push(current);
+    return result;
+  }
+
+  function formatDisplayDate(dateStr) {
+    if (!dateStr) return '—';
+    const [y, m, d] = dateStr.split('-');
+    if (!y || !m || !d) return dateStr;
+    const months = ['gen','feb','mar','apr','mag','giu','lug','ago','set','ott','nov','dic'];
+    return `${parseInt(d)} ${months[parseInt(m)-1]}`;
+  }
+
+  function render(bookings) {
+    const sopra = bookings.filter(b => b['Unit'] === 'Casa Sopra');
+    const sotto = bookings.filter(b => b['Unit'] === 'Casa Sotto');
+
+    document.getElementById('count-sopra').textContent =
+      sopra.length + ' prenotazion' + (sopra.length === 1 ? 'e' : 'i');
+    document.getElementById('count-sotto').textContent =
+      sotto.length + ' prenotazion' + (sotto.length === 1 ? 'e' : 'i');
+
+    renderUnit('bookings-sopra', sopra);
+    renderUnit('bookings-sotto', sotto);
+
+    document.getElementById('content').style.display = 'block';
+  }
+
+  function renderUnit(containerId, bookings) {
+    const container = document.getElementById(containerId);
+    container.innerHTML = '';
+
+    if (bookings.length === 0) {
+      container.innerHTML = '<div class="empty">Nessuna prenotazione</div>';
+      return;
+    }
+
+    for (const b of bookings) {
+      const source   = b['Source'] || '';
+      const checkin  = b['Check-in'] || '';
+      const checkout = b['Check-out'] || '';
+      const nights   = b['Nights'] || '';
+      const url      = b['Airbnb URL'] || '';
+      const guestName   = b['Guest Name'] || '';
+      const numGuests   = b['N. Guests'] || '';
+      const pets        = b['Pets'] || '';
+      const contact     = b['Contact'] || '';
+      const totalPrice  = b['Total Price'] || '';
+      const amountToPay = b['Amount to Pay'] || '';
+      const notes       = b['Notes'] || '';
+
+      let badgeClass = 'badge-booking';
+      let badgeLabel = 'Booking';
+      if (source === 'Airbnb')   { badgeClass = 'badge-airbnb';  badgeLabel = 'Airbnb'; }
+      if (source === 'Esterno')  { badgeClass = 'badge-esterno'; badgeLabel = 'Esterno'; }
+
+      let detailsHtml = '';
+
+      // Airbnb: show reservation URL
+      if (source === 'Airbnb' && url) {
+        detailsHtml += detailRow('Link', `<a href="${url}" target="_blank">Apri su Airbnb ↗</a>`);
+      }
+
+      // Esterno: show guest details
+      if (source === 'Esterno') {
+        if (guestName)   detailsHtml += detailRow('Ospite', guestName);
+        if (numGuests)   detailsHtml += detailRow('Persone', numGuests);
+        if (pets)        detailsHtml += detailRow('Animali', pets === 'yes' ? '🐾 Sì' : 'No');
+        if (contact)     detailsHtml += detailRow('Contatto', contact);
+        if (totalPrice)  detailsHtml += detailRow('Totale', totalPrice, 'price-row');
+        if (amountToPay) detailsHtml += detailRow('Da incassare', `<span class="price-to-pay">${amountToPay}</span>`, 'price-row');
+        if (notes)       detailsHtml += detailRow('Note', notes);
+      }
+
+      const card = document.createElement('div');
+      card.className = 'booking-card';
+      card.innerHTML = `
+        <div class="card-top">
+          <div>
+            <div class="dates">
+              ${formatDisplayDate(checkin)}
+              <span class="sep">→</span>
+              ${formatDisplayDate(checkout)}
+            </div>
+            <div class="nights">${nights ? nights + ' notti' : ''}</div>
+          </div>
+          <span class="source-badge ${badgeClass}">${badgeLabel}</span>
+        </div>
+        ${detailsHtml ? `<div class="card-details">${detailsHtml}</div>` : ''}
+      `;
+      container.appendChild(card);
+    }
+  }
+
+  function detailRow(label, value, extraClass = '') {
+    return `
+      <div class="detail-row ${extraClass}">
+        <span class="detail-label">${label}</span>
+        <span class="detail-value">${value}</span>
+      </div>`;
+  }
+
+  // Auto-load on page open
+  loadData();
+</script>
+
+</body>
+</html>
