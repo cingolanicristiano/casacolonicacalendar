@@ -3,709 +3,420 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Prenotazioni — Casa Sopra & Casa Sotto</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet" />
+  <title>Prenotazioni — Casa Sopra &amp; Casa Sotto</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
-    /* ── Variables ── */
     :root {
-      --cream:      #FAF7F2;
-      --white:      #FFFFFF;
-      --brown:      #2A1F1A;
-      --brown-mid:  #5C4033;
-      --brown-light:#9C8075;
-      --sopra:      #B85C38;   /* terracotta */
-      --sotto:      #3E7D8A;   /* dusty teal */
-      --airbnb:     #FF5A5F;
-      --booking:    #003580;
-      --esterno:    #5A7A52;
-      --border:     #EDE8E0;
-      --shadow:     0 2px 12px rgba(42,31,26,.08);
+      --bg:           #F5F0EB;
+      --white:        #FFFFFF;
+      --brown:        #1E1510;
+      --muted:        #9C8C82;
+      --border:       #DDD5CC;
+      --weekend-bg:   rgba(0,0,0,.03);
+      --sopra:        #B85C38;
+      --sopra-tile:   #F5E6DF;
+      --sotto:        #3A7D8A;
+      --sotto-tile:   #DDF0F3;
+      --airbnb:       #FF5A5F;
+      --booking:      #003580;
+      --esterno:      #5A7A52;
+      --highlight:    #B85C38;
+      --sub-row-h:    12px;
+      --row-h:        24px;
+      --date-col:     34px;
+      --tile-fs:      9.5px;
+      --tile-lh:      14px;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
-      font-family: 'Source Sans 3', sans-serif;
-      background: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
       color: var(--brown);
       min-height: 100vh;
     }
 
-    /* ── Header ── */
+    /* ── HEADER ── */
     header {
       background: var(--brown);
-      color: var(--cream);
-      padding: 24px 20px 20px;
-      text-align: center;
+      padding: 16px 12px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
-    header h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.6rem;
-      letter-spacing: .03em;
-      margin-bottom: 4px;
-    }
-    header p {
-      font-size: .8rem;
-      color: var(--brown-light);
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
-    #last-updated {
-      font-size: .75rem;
-      color: #9C8075;
-      margin-top: 6px;
-    }
-
-    /* ── Layout ── */
-    main {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 24px 16px 48px;
-    }
-
-    .units-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 32px;
-    }
-    @media (min-width: 640px) {
-      .units-grid { grid-template-columns: 1fr 1fr; }
-    }
-
-    /* ── Unit section ── */
-    .unit-section {}
-
-    .unit-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 14px;
-    }
-    .unit-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .sopra .unit-dot  { background: var(--sopra); }
-    .sotto .unit-dot  { background: var(--sotto); }
-
-    .unit-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.15rem;
-      font-weight: 700;
-    }
-    .unit-count {
-      margin-left: auto;
-      font-size: .72rem;
-      color: var(--brown-light);
-      text-transform: uppercase;
-      letter-spacing: .07em;
-    }
-
-    /* ── Booking card ── */
-    .booking-card {
-      background: var(--white);
-      border-radius: 10px;
-      padding: 14px 16px;
-      margin-bottom: 10px;
-      box-shadow: var(--shadow);
-      border-left: 4px solid transparent;
-      transition: transform .15s ease;
-    }
-    .booking-card:active { transform: scale(.98); }
-
-    .sopra .booking-card { border-left-color: var(--sopra); }
-    .sotto .booking-card { border-left-color: var(--sotto); }
-
-    .card-top {
+    .header-row {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      gap: 8px;
-      margin-bottom: 8px;
-    }
-
-    .dates {
-      font-size: .95rem;
-      font-weight: 600;
-      line-height: 1.3;
-    }
-    .dates .sep {
-      color: var(--brown-light);
-      font-weight: 300;
-      margin: 0 4px;
-    }
-    .nights {
-      font-size: .72rem;
-      color: var(--brown-light);
-      margin-top: 2px;
-    }
-
-    .source-badge {
-      font-size: .68rem;
-      font-weight: 600;
-      letter-spacing: .07em;
-      text-transform: uppercase;
-      padding: 3px 8px;
-      border-radius: 20px;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-    .badge-airbnb   { background: #FFEAEA; color: var(--airbnb); }
-    .badge-booking  { background: #E8EEF7; color: var(--booking); }
-    .badge-esterno  { background: #EBF2EA; color: var(--esterno); }
-
-    /* ── Details section ── */
-    .card-details {
-      border-top: 1px solid var(--border);
-      padding-top: 8px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .detail-row {
-      display: flex;
-      align-items: baseline;
-      gap: 6px;
-      font-size: .82rem;
-    }
-    .detail-label {
-      color: var(--brown-light);
-      font-size: .72rem;
-      text-transform: uppercase;
-      letter-spacing: .06em;
-      min-width: 70px;
-      flex-shrink: 0;
-    }
-    .detail-value {
-      color: var(--brown);
-      font-weight: 400;
-    }
-    .detail-value a {
-      color: var(--airbnb);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: .78rem;
-    }
-    .detail-value a:hover { text-decoration: underline; }
-
-    .price-row .detail-value {
-      font-weight: 600;
-      font-size: .9rem;
-    }
-    .price-to-pay {
-      color: var(--sopra);
-    }
-
-    /* ── Empty / loading states ── */
-    .empty {
-      text-align: center;
-      padding: 32px 16px;
-      color: var(--brown-light);
-      font-size: .85rem;
-    }
-
-    #loading {
-      text-align: center;
-      padding: 60px 20px;
-      color: var(--brown-light);
-      font-size: .9rem;
-    }
-
-    #error-msg {
-      background: #FFF3F3;
-      border: 1px solid #FFCDD2;
-      color: #B71C1C;
-      padding: 16px;
-      border-radius: 8px;
-      margin: 20px 0;
-      font-size: .85rem;
-      display: none;
-    }
-
-    /* ── Pulizie section ── */
-    .pulizie-section {
-      margin-bottom: 32px;
-    }
-    .pulizie-header {
-      display: flex;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 14px;
+      margin-bottom: 10px;
     }
-    .pulizie-icon {
+    .header-title {
+      font-family: 'Playfair Display', serif;
       font-size: 1.1rem;
+      color: #FAF7F2;
+      line-height: 1.2;
     }
-    .pulizie-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.15rem;
-      font-weight: 700;
-    }
-    .pulizie-card {
-      background: var(--white);
-      border-radius: 10px;
-      padding: 14px 16px;
-      margin-bottom: 10px;
-      box-shadow: var(--shadow);
-      border-left: 4px solid transparent;
-    }
-    .pulizie-card.urgency-red    { border-left-color: #D32F2F; }
-    .pulizie-card.urgency-amber  { border-left-color: #F57C00; }
-    .pulizie-card.urgency-green  { border-left-color: #388E3C; }
-    .pulizie-card.urgency-none   { border-left-color: var(--border); }
-
-    .pulizie-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 8px;
-      margin-bottom: 8px;
-    }
-    .pulizie-date {
-      font-size: .95rem;
-      font-weight: 600;
-    }
-    .pulizie-unit-label {
-      font-size: .72rem;
-      color: var(--brown-light);
+    .header-meta {
+      font-size: .65rem;
+      color: rgba(255,255,255,.35);
       margin-top: 2px;
-    }
-    .pulizie-days-badge {
-      font-size: .72rem;
-      font-weight: 700;
-      letter-spacing: .05em;
-      text-transform: uppercase;
-      padding: 3px 10px;
-      border-radius: 20px;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-    .badge-red   { background: #FFEBEE; color: #D32F2F; }
-    .badge-amber { background: #FFF3E0; color: #E65100; }
-    .badge-green { background: #E8F5E9; color: #2E7D32; }
-    .badge-grey  { background: #F5F5F5; color: #757575; }
-
-    .pulizie-details {
-      border-top: 1px solid var(--border);
-      padding-top: 8px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-    .pulizie-row {
-      font-size: .82rem;
-      display: flex;
-      align-items: baseline;
-      gap: 6px;
-    }
-    .pulizie-row-label {
-      color: var(--brown-light);
-      font-size: .72rem;
-      text-transform: uppercase;
-      letter-spacing: .06em;
-      min-width: 80px;
-      flex-shrink: 0;
-    }
-    .pulizie-warning {
-      margin-top: 6px;
-      font-size: .8rem;
-      font-weight: 600;
-      color: #D32F2F;
-    }
-
-    /* ── Refresh button ── */
-    .refresh-bar {
-      text-align: center;
-      margin-bottom: 20px;
     }
     .refresh-btn {
-      background: none;
-      border: 1px solid var(--border);
-      color: var(--brown-mid);
-      padding: 7px 18px;
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.18);
+      color: #FAF7F2;
+      padding: 5px 12px;
       border-radius: 20px;
       font-family: inherit;
-      font-size: .78rem;
+      font-size: .72rem;
       cursor: pointer;
-      letter-spacing: .05em;
-      transition: background .15s;
+      flex-shrink: 0;
     }
-    .refresh-btn:hover { background: var(--border); }
+    .refresh-btn:active { opacity: .7; }
+    .lane-header-row {
+      display: grid;
+      grid-template-columns: var(--date-col) 1fr 1fr;
+    }
+    .lane-header {
+      text-align: center;
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .05em;
+      padding: 5px 4px;
+      border-radius: 5px 5px 0 0;
+    }
+    .lane-header.sopra { background: var(--sopra); color: #fff; }
+    .lane-header.sotto { background: var(--sotto); color: #fff; }
+
+    /* ── LOADING / ERROR ── */
+    #status {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--muted);
+      font-size: .85rem;
+    }
+    #status.error {
+      color: #B71C1C;
+      background: #FFF3F3;
+      margin: 16px;
+      border-radius: 8px;
+      padding: 16px;
+      text-align: left;
+    }
+
+    /* ── CALENDAR GRID ── */
+    main { max-width: 560px; margin: 0 auto; padding-bottom: 40px; }
+    #cal-grid {
+      display: grid;
+      grid-template-columns: var(--date-col) 1fr 1fr;
+    }
+
+    /* ── DAY LABEL ── */
+    /* day-label and day-line each span 2 sub-rows = 1 visual day */
+    .day-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: var(--row-h);  /* spans 2 sub-rows via grid-row in JS */
+      border-top: 1px solid var(--border);
+      background: var(--bg);
+      z-index: 2;
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: -.01em;
+    }
+    .day-label.weekend { background: var(--weekend-bg); color: #b0a098; }
+    .day-label.today   { color: var(--brown); font-weight: 700; }
+
+    .month-marker {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: var(--row-h);
+      background: var(--brown);
+      color: rgba(255,255,255,.7);
+      font-size: 7.5px;
+      font-weight: 600;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      z-index: 3;
+    }
+
+    /* ── DAY LINES ── */
+    .day-line {
+      height: var(--row-h);
+      border-top: 1px solid var(--border);
+    }
+    .day-line.weekend     { background: var(--weekend-bg); }
+    .day-line.month-first { border-top: 2px solid rgba(0,0,0,.1); }
+
+    /* ── TILE ── */
+    .tile {
+      margin: 2px 3px;
+      border-radius: 5px;
+      padding: 5px 6px;
+      z-index: 5;
+      overflow: hidden;
+      align-self: stretch;
+      min-width: 0;
+    }
+    .tile.sopra-tile { background: var(--sopra-tile); border-left: 3px solid var(--sopra); }
+    .tile.sotto-tile { background: var(--sotto-tile); border-left: 3px solid var(--sotto); }
+
+    .tl {
+      display: block;
+      font-size: var(--tile-fs);
+      line-height: var(--tile-lh);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .tl-dates {
+      font-family: 'DM Mono', monospace;
+      font-weight: 500;
+      font-size: 9.5px;
+    }
+    .tl-dates .arr { color: var(--muted); }
+    .tl-nights  { color: var(--muted); font-size: 8.5px; }
+    .tl-source  {
+      display: inline-block;
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      padding: 1px 5px;
+      border-radius: 8px;
+      line-height: 13px;
+    }
+    .src-airbnb  { background: #FFEAEA; color: var(--airbnb); }
+    .src-booking { background: #E8EEF7; color: var(--booking); }
+    .src-esterno { background: #EBF2EA; color: var(--esterno); }
+    .tl-divider {
+      display: block;
+      height: 1px;
+      background: rgba(0,0,0,.08);
+      margin: 3px 0;
+    }
+    .tl-guest  { font-weight: 600; }
+    .tl-detail { color: var(--muted); font-size: 8.5px; }
+    .tl-money  { font-weight: 700; }
+    .tl-topay  { color: var(--highlight); font-weight: 700; }
+    .tl-link   { color: var(--airbnb); font-weight: 600; font-size: 8.5px; text-decoration: none; }
   </style>
 </head>
 <body>
 
 <header>
-  <h1>Casa Sopra &amp; Casa Sotto</h1>
-  <p>Prenotazioni in corso</p>
-  <div id="last-updated"></div>
+  <div class="header-row">
+    <div>
+      <div class="header-title">Casa Sopra &amp; Casa Sotto</div>
+      <div class="header-meta" id="last-updated"></div>
+    </div>
+    <button class="refresh-btn" onclick="loadData()">↻ Aggiorna</button>
+  </div>
+  <div class="lane-header-row">
+    <div></div>
+    <div class="lane-header sopra">Casa Sopra</div>
+    <div class="lane-header sotto">Casa Sotto</div>
+  </div>
 </header>
 
-<main>
-  <div id="error-msg"></div>
-  <div id="loading">Caricamento prenotazioni…</div>
-
-  <div id="content" style="display:none">
-    <div class="refresh-bar">
-      <button class="refresh-btn" onclick="loadData()">↻ Aggiorna</button>
-    </div>
-    <div class="pulizie-section">
-      <div class="pulizie-header">
-        <span class="pulizie-icon">🧹</span>
-        <span class="pulizie-title">Pulizie</span>
-      </div>
-      <div id="pulizie-list"></div>
-    </div>
-
-    <div class="units-grid">
-      <div class="unit-section sopra" id="section-sopra">
-        <div class="unit-header">
-          <span class="unit-dot"></span>
-          <span class="unit-title">Casa Sopra</span>
-          <span class="unit-count" id="count-sopra"></span>
-        </div>
-        <div id="bookings-sopra"></div>
-      </div>
-      <div class="unit-section sotto" id="section-sotto">
-        <div class="unit-header">
-          <span class="unit-dot"></span>
-          <span class="unit-title">Casa Sotto</span>
-          <span class="unit-count" id="count-sotto"></span>
-        </div>
-        <div id="bookings-sotto"></div>
-      </div>
-    </div>
-  </div>
-</main>
+<div id="status">Caricamento…</div>
+<main style="display:none"><div id="cal-grid"></div></main>
 
 <script>
-  // ─────────────────────────────────────────────────────────
-  // ⚠️  REPLACE THIS URL with your published Google Sheet CSV URL
-  //
-  // In Google Sheets:
-  //   File → Share → Publish to web
-  //   Select the "View" sheet → CSV → Publish
-  //   Copy the URL and paste it below
-  // ─────────────────────────────────────────────────────────
+  // ─────────────────────────────────────────────────────────────────
+  // ⚠️  REPLACE with your published Google Sheet CSV URL
+  //     File → Share → Publish to web → View sheet → CSV → Publish
+  // ─────────────────────────────────────────────────────────────────
   const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTFb8p_HMNzEV0zXhvrdSS-HsJ3SP-xOGYwyjQLO5PehyYphLhs1id276VXG12XP1cfdrp8kuVwUG5o/pub?gid=1147583746&single=true&output=csv';
 
-  async function loadData() {
-    document.getElementById('loading').style.display = 'block';
-    document.getElementById('content').style.display = 'none';
-    document.getElementById('error-msg').style.display = 'none';
+  const DOW_LETTER = ['D','L','M','M','G','V','S'];
+  const DOW_3      = ['Dom','Lun','Mar','Mer','Gio','Ven','Sab'];
+  const MONTHS_IT  = ['GEN','FEB','MAR','APR','MAG','GIU','LUG','AGO','SET','OTT','NOV','DIC'];
 
-    try {
-      // Add cache-busting param
-      const url = SHEET_CSV_URL + (SHEET_CSV_URL.includes('?') ? '&' : '?') + '_=' + Date.now();
-      const res = await fetch(url);
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      const csv = await res.text();
-      const bookings = parseCsv(csv);
-      render(bookings);
-      document.getElementById('last-updated').textContent =
-        'Aggiornato: ' + new Date().toLocaleTimeString('it-IT', {hour:'2-digit', minute:'2-digit'});
-    } catch (e) {
-      const el = document.getElementById('error-msg');
-      el.style.display = 'block';
-      el.textContent = 'Errore nel caricamento dati. Controlla che il CSV sia pubblicato correttamente. (' + e.message + ')';
-    } finally {
-      document.getElementById('loading').style.display = 'none';
+  function parseDate(s) {
+    if (!s) return null;
+    const [y, m, d] = s.split('-').map(Number);
+    if (!y || !m || !d) return null;
+    return new Date(y, m - 1, d);
+  }
+
+  function daysBetween(a, b) {
+    return Math.round((b - a) / 86400000);
+  }
+
+  function shortDate(dateStr) {
+    const d = parseDate(dateStr);
+    if (!d) return '';
+    return `${DOW_3[d.getDay()]} ${d.getDate()}`;
+  }
+
+  function splitCsvLine(line) {
+    const result = [];
+    let cur = '', inQ = false;
+    for (const ch of line) {
+      if (ch === '"') { inQ = !inQ; }
+      else if (ch === ',' && !inQ) { result.push(cur); cur = ''; }
+      else cur += ch;
     }
+    result.push(cur);
+    return result;
   }
 
   function parseCsv(csv) {
     const lines = csv.trim().split('\n');
     if (lines.length < 2) return [];
-    const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
-    const bookings = [];
+    const headers = splitCsvLine(lines[0]).map(h => h.trim().replace(/^"|"$/g, ''));
+    const rows = [];
     for (let i = 1; i < lines.length; i++) {
       const cols = splitCsvLine(lines[i]);
       const row = {};
       headers.forEach((h, idx) => { row[h] = (cols[idx] || '').trim().replace(/^"|"$/g, ''); });
-      if (!row['Unit'] || !row['Check-in']) continue;
-      bookings.push(row);
+      if (row['Unit'] && row['Check-in']) rows.push(row);
     }
-    return bookings;
+    return rows;
   }
 
-  // Handles quoted fields with commas
-  function splitCsvLine(line) {
-    const result = [];
-    let current = '';
-    let inQuotes = false;
-    for (let i = 0; i < line.length; i++) {
-      const ch = line[i];
-      if (ch === '"') {
-        inQuotes = !inQuotes;
-      } else if (ch === ',' && !inQuotes) {
-        result.push(current);
-        current = '';
+  async function loadData() {
+    const status = document.getElementById('status');
+    const main   = document.querySelector('main');
+    status.textContent = 'Caricamento…';
+    status.className = '';
+    status.style.display = 'block';
+    main.style.display = 'none';
+
+    try {
+      const url = SHEET_CSV_URL + (SHEET_CSV_URL.includes('?') ? '&' : '?') + '_=' + Date.now();
+      const res = await fetch(url);
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const csv = await res.text();
+      const rows = parseCsv(csv);
+      buildGrid(rows);
+      document.getElementById('last-updated').textContent =
+        'Aggiornato ' + new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+      status.style.display = 'none';
+      main.style.display = 'block';
+    } catch (e) {
+      status.className = 'error';
+      status.textContent = 'Errore nel caricamento. Controlla che il CSV sia pubblicato correttamente. (' + e.message + ')';
+    }
+  }
+
+  function buildGrid(rows) {
+    const grid = document.getElementById('cal-grid');
+    grid.innerHTML = '';
+
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+    const year  = today.getFullYear();
+    const START = new Date(today);
+    const END   = new Date(year, 11, 31);
+    const totalDays = daysBetween(START, END) + 1;
+
+    // 2 sub-rows per day: sub-row N*2+1 = morning, N*2+2 = afternoon
+    const totalSubRows = totalDays * 2;
+    grid.style.gridTemplateRows = `repeat(${totalSubRows}, 12px)`;
+
+    // Day rows — each label/line spans 2 sub-rows
+    for (let i = 0; i < totalDays; i++) {
+      const date  = new Date(START);
+      date.setDate(date.getDate() + i);
+      const day   = date.getDate();
+      const dow   = date.getDay();
+      const isWE  = dow === 0 || dow === 6;
+      const is1st = day === 1;
+      const isToday = i === 0;
+
+      const rowStart = i * 2 + 1;       // 1-based sub-row for morning
+      const rowEnd   = rowStart + 2;    // spans 2 sub-rows
+
+      if (is1st) {
+        const mm = document.createElement('div');
+        mm.className = 'month-marker';
+        mm.style.cssText = `grid-row:${rowStart}/${rowEnd};grid-column:1`;
+        mm.textContent = MONTHS_IT[date.getMonth()];
+        grid.appendChild(mm);
       } else {
-        current += ch;
-      }
-    }
-    result.push(current);
-    return result;
-  }
-
-  function formatDisplayDate(dateStr) {
-    if (!dateStr) return '—';
-    const [y, m, d] = dateStr.split('-');
-    if (!y || !m || !d) return dateStr;
-    const months = ['gen','feb','mar','apr','mag','giu','lug','ago','set','ott','nov','dic'];
-    return `${parseInt(d)} ${months[parseInt(m)-1]}`;
-  }
-
-  function render(bookings) {
-    const sopra = bookings.filter(b => b['Unit'] === 'Casa Sopra');
-    const sotto = bookings.filter(b => b['Unit'] === 'Casa Sotto');
-
-    document.getElementById('count-sopra').textContent =
-      sopra.length + ' prenotazion' + (sopra.length === 1 ? 'e' : 'i');
-    document.getElementById('count-sotto').textContent =
-      sotto.length + ' prenotazion' + (sotto.length === 1 ? 'e' : 'i');
-
-    renderUnit('bookings-sopra', sopra);
-    renderUnit('bookings-sotto', sotto);
-    renderPulizie(bookings);
-
-    document.getElementById('content').style.display = 'block';
-  }
-
-  function dateFromStr(s) {
-    if (!s) return null;
-    const [y, m, d] = s.split('-').map(Number);
-    return new Date(y, m - 1, d);
-  }
-
-  function addDays(date, n) {
-    const d = new Date(date);
-    d.setDate(d.getDate() + n);
-    return d;
-  }
-
-  function sameDay(a, b) {
-    return a.getFullYear() === b.getFullYear() &&
-           a.getMonth()    === b.getMonth()    &&
-           a.getDate()     === b.getDate();
-  }
-
-  function daysBetween(a, b) {
-    return Math.round((b - a) / (1000 * 60 * 60 * 24));
-  }
-
-  function renderPulizie(bookings) {
-    const container = document.getElementById('pulizie-list');
-    container.innerHTML = '';
-
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    // Build list of checkouts from today onwards
-    const checkouts = bookings
-      .map(b => ({ unit: b['Unit'], checkout: b['Check-out'], checkin: b['Check-in'] }))
-      .filter(b => {
-        const d = dateFromStr(b.checkout);
-        return d && d >= today;
-      })
-      .sort((a, b) => a.checkout.localeCompare(b.checkout));
-
-    if (checkouts.length === 0) {
-      container.innerHTML = '<div class="empty">Nessun checkout in programma</div>';
-      return;
-    }
-
-    // For each checkout, find next checkin in same unit and status of other unit
-    const otherUnit = u => u === 'Casa Sopra' ? 'Casa Sotto' : 'Casa Sopra';
-
-    const cards = [];
-
-    for (const co of checkouts) {
-      const coDate = dateFromStr(co.checkout);
-      const thisUnit = co.unit;
-      const other = otherUnit(thisUnit);
-
-      // Find next checkin in same unit after this checkout
-      const sameUnitCheckins = bookings
-        .filter(b => b['Unit'] === thisUnit)
-        .map(b => dateFromStr(b['Check-in']))
-        .filter(d => d && d >= coDate)
-        .sort((a, b) => a - b);
-
-      const nextCheckin = sameUnitCheckins[0] || null;
-      const daysToClean = nextCheckin ? daysBetween(coDate, nextCheckin) : null;
-
-      // Other unit status on checkout day
-      let otherStatus = '';
-      const otherBookings = bookings.filter(b => b['Unit'] === other);
-
-      const otherCheckout = otherBookings.find(b => sameDay(dateFromStr(b['Check-out']), coDate));
-      const otherCheckin  = otherBookings.find(b => sameDay(dateFromStr(b['Check-in']),  coDate));
-      const otherOccupied = otherBookings.find(b => {
-        const ci = dateFromStr(b['Check-in']);
-        const cx = dateFromStr(b['Check-out']);
-        return ci && cx && coDate > ci && coDate < cx;
-      });
-
-      let otherStatusText = '';
-      let parallelWarning = false;
-
-      if (otherCheckout) {
-        otherStatusText = `${other}: anche in pulizia`;
-        parallelWarning = true;
-      } else if (otherCheckin) {
-        otherStatusText = `${other}: arrivo ospiti`;
-      } else if (otherOccupied) {
-        otherStatusText = `${other}: occupata`;
-      } else {
-        otherStatusText = `${other}: libera`;
+        const lbl = document.createElement('div');
+        lbl.className = 'day-label' + (isWE ? ' weekend' : '') + (isToday ? ' today' : '');
+        lbl.style.cssText = `grid-row:${rowStart}/${rowEnd};grid-column:1`;
+        lbl.textContent = `${DOW_LETTER[dow]}${day}`;
+        grid.appendChild(lbl);
       }
 
-      // Urgency
-      let urgencyClass = 'urgency-none';
-      let badgeClass   = 'badge-grey';
-      let badgeLabel   = 'Nessun arrivo';
+      for (const col of ['2', '3']) {
+        const ln = document.createElement('div');
+        ln.className = 'day-line' + (isWE ? ' weekend' : '') + (is1st ? ' month-first' : '');
+        ln.style.cssText = `grid-row:${rowStart}/${rowEnd};grid-column:${col}`;
+        grid.appendChild(ln);
+      }
+    }
 
-      if (daysToClean !== null) {
-        if (daysToClean <= 1) {
-          urgencyClass = 'urgency-red';
-          badgeClass   = 'badge-red';
-          badgeLabel   = daysToClean === 0 ? 'Stesso giorno' : '1 giorno';
-        } else if (daysToClean === 2) {
-          urgencyClass = 'urgency-amber';
-          badgeClass   = 'badge-amber';
-          badgeLabel   = '2 giorni';
-        } else {
-          urgencyClass = 'urgency-green';
-          badgeClass   = 'badge-green';
-          badgeLabel   = daysToClean + ' giorni';
+    // Tiles — start at afternoon sub-row of check-in, end at morning sub-row of checkout
+    rows.forEach(b => {
+      const ciDate = parseDate(b['Check-in']);
+      const coDate = parseDate(b['Check-out']);
+      if (!ciDate || !coDate) return;
+      if (coDate <= today) return;
+
+      const clampedStart = ciDate < today ? today : ciDate;
+      const si = daysBetween(START, clampedStart);
+      const ei = daysBetween(START, coDate);
+      if (si >= totalDays || ei <= 0 || si >= ei) return;
+
+      // Tile starts at afternoon (sub-row +2) of check-in day
+      // Tile ends at morning (sub-row +1) of checkout day = no overlap with checkout morning
+      const tileRowStart = si * 2 + 2;    // afternoon of check-in
+      const tileRowEnd   = ei * 2 + 2;    // afternoon of checkout
+
+      if (tileRowEnd <= tileRowStart) return;
+
+      const nights    = daysBetween(ciDate, coDate);
+      const unit      = b['Unit'];
+      const source    = b['Source'];
+      const col       = unit === 'Casa Sopra' ? '2' : '3';
+      const tileClass = unit === 'Casa Sopra' ? 'sopra-tile' : 'sotto-tile';
+      const srcClass  = { Airbnb: 'src-airbnb', Booking: 'src-booking', Esterno: 'src-esterno' }[source] || 'src-booking';
+
+      let html = '';
+      html += `<span class="tl tl-dates">${shortDate(b['Check-in'])}<span class="arr"> → </span>${shortDate(b['Check-out'])}</span>`;
+      html += `<span class="tl tl-nights">${nights} notti</span>`;
+      html += `<span class="tl"><span class="tl-source ${srcClass}">${source}</span></span>`;
+
+      if (source === 'Esterno') {
+        const guest   = b['Guest Name']    || '';
+        const people  = b['N. Guests']     || '';
+        const pets    = b['Pets']          || '';
+        const contact = b['Contact']       || '';
+        const total   = b['Total Price']   || '';
+        const topay   = b['Amount to Pay'] || '';
+        const notes   = b['Notes']         || '';
+
+        if (guest || people || contact || total || topay || notes) {
+          html += `<span class="tl-divider"></span>`;
+          if (guest)   html += `<span class="tl tl-guest">${guest}</span>`;
+          if (people)  html += `<span class="tl tl-detail">${people} persone${pets === 'yes' ? ' · 🐾' : ''}</span>`;
+          if (contact) html += `<span class="tl tl-detail">${contact}</span>`;
+          if (total)   html += `<span class="tl tl-money">${total}</span>`;
+          if (topay)   html += `<span class="tl tl-topay">Saldo ${topay}</span>`;
+          if (notes)   html += `<span class="tl tl-detail">${notes}</span>`;
         }
       }
 
-      cards.push({
-        coDate,
-        co,
-        daysToClean,
-        nextCheckin,
-        otherStatusText,
-        parallelWarning,
-        urgencyClass,
-        badgeClass,
-        badgeLabel
-      });
-    }
-
-    for (const c of cards) {
-      const nextCheckinStr = c.nextCheckin
-        ? `checkin ${formatDisplayDate(c.nextCheckin.getFullYear() + '-' + String(c.nextCheckin.getMonth()+1).padStart(2,'0') + '-' + String(c.nextCheckin.getDate()).padStart(2,'0'))}`
-        : 'nessun arrivo previsto';
-
-      const card = document.createElement('div');
-      card.className = `pulizie-card ${c.urgencyClass}`;
-      card.innerHTML = `
-        <div class="pulizie-top">
-          <div>
-            <div class="pulizie-date">${formatDisplayDate(c.co.checkout)} — ${c.co.unit}</div>
-            <div class="pulizie-unit-label">Checkout</div>
-          </div>
-          <span class="pulizie-days-badge ${c.badgeClass}">${c.badgeLabel}</span>
-        </div>
-        <div class="pulizie-details">
-          <div class="pulizie-row">
-            <span class="pulizie-row-label">Finestra</span>
-            <span>${c.daysToClean !== null ? c.daysToClean + (c.daysToClean === 1 ? ' giorno' : ' giorni') + ' per pulire (' + nextCheckinStr + ')' : 'Nessun arrivo previsto'}</span>
-          </div>
-          <div class="pulizie-row">
-            <span class="pulizie-row-label">Altra unità</span>
-            <span>${c.otherStatusText}</span>
-          </div>
-          ${c.parallelWarning ? `<div class="pulizie-warning">⚠️ Servono 2 persone in parallelo</div>` : ''}
-        </div>
-      `;
-      container.appendChild(card);
-    }
-  }
-
-  function renderUnit(containerId, bookings) {
-    const container = document.getElementById(containerId);
-    container.innerHTML = '';
-
-    if (bookings.length === 0) {
-      container.innerHTML = '<div class="empty">Nessuna prenotazione</div>';
-      return;
-    }
-
-    for (const b of bookings) {
-      const source   = b['Source'] || '';
-      const checkin  = b['Check-in'] || '';
-      const checkout = b['Check-out'] || '';
-      const nights   = b['Nights'] || '';
-      const url      = b['Airbnb URL'] || '';
-      const guestName   = b['Guest Name'] || '';
-      const numGuests   = b['N. Guests'] || '';
-      const pets        = b['Pets'] || '';
-      const contact     = b['Contact'] || '';
-      const totalPrice  = b['Total Price'] || '';
-      const amountToPay = b['Amount to Pay'] || '';
-      const notes       = b['Notes'] || '';
-
-      let badgeClass = 'badge-booking';
-      let badgeLabel = 'Booking';
-      if (source === 'Airbnb')   { badgeClass = 'badge-airbnb';  badgeLabel = 'Airbnb'; }
-      if (source === 'Esterno')  { badgeClass = 'badge-esterno'; badgeLabel = 'Esterno'; }
-
-      let detailsHtml = '';
-
-      // Airbnb: show reservation URL
-      if (source === 'Airbnb' && url) {
-        detailsHtml += detailRow('Link', `<a href="${url}" target="_blank">Apri su Airbnb ↗</a>`);
+      if (source === 'Airbnb' && b['Airbnb URL']) {
+        html += `<a class="tl tl-link" href="${b['Airbnb URL']}" target="_blank">Apri Airbnb ↗</a>`;
       }
 
-      // Esterno: show guest details
-      if (source === 'Esterno') {
-        if (guestName)   detailsHtml += detailRow('Ospite', guestName);
-        if (numGuests)   detailsHtml += detailRow('Persone', numGuests);
-        if (pets)        detailsHtml += detailRow('Animali', pets === 'yes' ? '🐾 Sì' : 'No');
-        if (contact)     detailsHtml += detailRow('Contatto', contact);
-        if (totalPrice)  detailsHtml += detailRow('Totale', totalPrice, 'price-row');
-        if (amountToPay) detailsHtml += detailRow('Da incassare', `<span class="price-to-pay">${amountToPay}</span>`, 'price-row');
-        if (notes)       detailsHtml += detailRow('Note', notes);
-      }
-
-      const card = document.createElement('div');
-      card.className = 'booking-card';
-      card.innerHTML = `
-        <div class="card-top">
-          <div>
-            <div class="dates">
-              ${formatDisplayDate(checkin)}
-              <span class="sep">→</span>
-              ${formatDisplayDate(checkout)}
-            </div>
-            <div class="nights">${nights ? nights + ' notti' : ''}</div>
-          </div>
-          <span class="source-badge ${badgeClass}">${badgeLabel}</span>
-        </div>
-        ${detailsHtml ? `<div class="card-details">${detailsHtml}</div>` : ''}
-      `;
-      container.appendChild(card);
-    }
+      const tile = document.createElement('div');
+      tile.className = `tile ${tileClass}`;
+      tile.style.cssText = `grid-row:${tileRowStart}/${tileRowEnd};grid-column:${col}`;
+      tile.innerHTML = html;
+      grid.appendChild(tile);
+    });
   }
 
-  function detailRow(label, value, extraClass = '') {
-    return `
-      <div class="detail-row ${extraClass}">
-        <span class="detail-label">${label}</span>
-        <span class="detail-value">${value}</span>
-      </div>`;
-  }
-
-  // Auto-load on page open
   loadData();
 </script>
-
 </body>
 </html>
