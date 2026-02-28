@@ -7,25 +7,25 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg:           #F5F0EB;
+      --bg:           #EDE8E1;
       --white:        #FFFFFF;
-      --brown:        #1E1510;
-      --muted:        #9C8C82;
-      --border:       #DDD5CC;
-      --weekend-bg:   rgba(0,0,0,.03);
+      --brown:        #1A0F0A;
+      --muted:        #5C4E46;
+      --border:       #C8BFB5;
+      --weekend-bg:   rgba(0,0,0,.05);
       --sopra:        #B85C38;
-      --sopra-tile:   #F5E6DF;
-      --sotto:        #3A7D8A;
-      --sotto-tile:   #DDF0F3;
-      --airbnb:       #FF5A5F;
+      --sopra-tile:   #F7EAE3;
+      --sotto:        #2F6E7A;
+      --sotto-tile:   #D4EEF2;
+      --airbnb:       #C0392B;
       --booking:      #003580;
-      --esterno:      #5A7A52;
-      --highlight:    #B85C38;
+      --esterno:      #2E6B27;
+      --highlight:    #A0401C;
       --sub-row-h:    12px;
       --row-h:        24px;
-      --date-col:     34px;
-      --tile-fs:      9.5px;
-      --tile-lh:      14px;
+      --date-col:     38px;
+      --tile-fs:      11px;
+      --tile-lh:      16px;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -116,17 +116,17 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      height: var(--row-h);  /* spans 2 sub-rows via grid-row in JS */
+      height: var(--row-h);
       border-top: 1px solid var(--border);
       background: var(--bg);
       z-index: 2;
       font-family: 'DM Mono', monospace;
-      font-size: 9px;
-      font-weight: 500;
-      color: var(--muted);
+      font-size: 10px;
+      font-weight: 600;
+      color: #3D2E26;
       letter-spacing: -.01em;
     }
-    .day-label.weekend { background: var(--weekend-bg); color: #b0a098; }
+    .day-label.weekend { background: var(--weekend-bg); color: #7A6860; }
     .day-label.today   { color: var(--brown); font-weight: 700; }
 
     .month-marker {
@@ -135,9 +135,9 @@
       justify-content: center;
       height: var(--row-h);
       background: var(--brown);
-      color: rgba(255,255,255,.7);
-      font-size: 7.5px;
-      font-weight: 600;
+      color: rgba(255,255,255,.8);
+      font-size: 8.5px;
+      font-weight: 700;
       letter-spacing: .16em;
       text-transform: uppercase;
       z-index: 3;
@@ -161,8 +161,8 @@
       align-self: stretch;
       min-width: 0;
     }
-    .tile.sopra-tile { background: var(--sopra-tile); border-left: 3px solid var(--sopra); }
-    .tile.sotto-tile { background: var(--sotto-tile); border-left: 3px solid var(--sotto); }
+    .tile.sopra-tile { background: var(--sopra-tile); border: 2px solid var(--sopra); }
+    .tile.sotto-tile { background: var(--sotto-tile); border: 2px solid var(--sotto); }
 
     .tl {
       display: block;
@@ -174,35 +174,36 @@
     }
     .tl-dates {
       font-family: 'DM Mono', monospace;
-      font-weight: 500;
-      font-size: 9.5px;
+      font-weight: 600;
+      font-size: 11px;
+      color: var(--brown);
     }
     .tl-dates .arr { color: var(--muted); }
-    .tl-nights  { color: var(--muted); font-size: 8.5px; }
+    .tl-nights  { color: var(--muted); font-size: 10px; }
     .tl-source  {
       display: inline-block;
-      font-size: 8px;
+      font-size: 9px;
       font-weight: 700;
       letter-spacing: .05em;
       text-transform: uppercase;
-      padding: 1px 5px;
+      padding: 1px 6px;
       border-radius: 8px;
-      line-height: 13px;
+      line-height: 14px;
     }
-    .src-airbnb  { background: #FFEAEA; color: var(--airbnb); }
-    .src-booking { background: #E8EEF7; color: var(--booking); }
-    .src-esterno { background: #EBF2EA; color: var(--esterno); }
+    .src-airbnb  { background: #FADBD8; color: #922B21; }
+    .src-booking { background: #D6E4F0; color: #1A5276; }
+    .src-esterno { background: #D5F5E3; color: #1E8449; }
     .tl-divider {
       display: block;
       height: 1px;
-      background: rgba(0,0,0,.08);
+      background: rgba(0,0,0,.1);
       margin: 3px 0;
     }
-    .tl-guest  { font-weight: 600; }
-    .tl-detail { color: var(--muted); font-size: 8.5px; }
-    .tl-money  { font-weight: 700; }
+    .tl-guest  { font-weight: 700; color: var(--brown); font-size: 11px; }
+    .tl-detail { color: var(--muted); font-size: 10px; }
+    .tl-money  { font-weight: 700; color: var(--brown); }
     .tl-topay  { color: var(--highlight); font-weight: 700; }
-    .tl-link   { color: var(--airbnb); font-weight: 600; font-size: 8.5px; text-decoration: none; }
+    .tl-link   { color: #1A5276; font-weight: 600; font-size: 10px; text-decoration: none; }
   </style>
 </head>
 <body>
